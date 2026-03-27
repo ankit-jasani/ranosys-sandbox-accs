@@ -1,5 +1,5 @@
 export default async function decorate(block) {
-  const res = await fetch('https://na1-sandbox.api.commerce.adobe.com', {
+  const res = await fetch('https://na1-sandbox.api.commerce.adobe.com/Hy9ZaatDe2kixCZqGfcKK6/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
