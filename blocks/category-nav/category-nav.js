@@ -10,11 +10,11 @@ export default async function decorate(block) {
     },
     body: JSON.stringify({
       query: `
-        query {
-          categories(ids: "2") {
-            children {
+        query GetNavCategories {
+          categories(filters: { parent_id: { eq: "2" } }) {
+            items {
               name
-              urlPath
+              url_path
             }
           }
         }
@@ -23,8 +23,9 @@ export default async function decorate(block) {
   });
 
   const response = await res.json();
-  // ACCS returns an array, so we take the first element (ID "2") and get its children
-  const categories = response.data?.categories[0]?.children || [];
+  
+  // The Catalog Service returns a list within the 'items' field
+  const categories = response.data?.categories?.items || [];
 
   const ul = document.createElement('ul');
   categories.forEach((c) => {
@@ -32,8 +33,8 @@ export default async function decorate(block) {
     const a = document.createElement('a');
 
     a.textContent = c.name;
-    // This matches your da.live setup: /categories/default folder/page
-    a.href = `/categories/default?urlPath=${c.urlPath}`;
+    // Ensuring the link points to your /categories/default route
+    a.href = `/categories/default?urlPath=${c.url_path}`;
 
     li.appendChild(a);
     ul.appendChild(li);
