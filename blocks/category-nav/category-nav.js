@@ -5,7 +5,7 @@ export default async function decorate(block) {
       'Content-Type': 'application/json',
       'Magento-Website-Code': 'base',
       'Magento-Store-View-Code': 'default',
-      'x-api-key': 'YOUR_API_KEY' // Ensure your API key is here if needed
+      'x-api-key': 'YOUR_ACTUAL_API_KEY_HERE', // Replace with your real key
     },
     body: JSON.stringify({
       query: `
@@ -17,11 +17,12 @@ export default async function decorate(block) {
             }
           }
         }
-      `
-    })
+      `,
+    }),
   });
 
   const response = await res.json();
+  // ACCS returns an array, so we take the first element (ID "2") and get its children
   const categories = response.data?.categories[0]?.children || [];
 
   const ul = document.createElement('ul');
@@ -30,8 +31,7 @@ export default async function decorate(block) {
     const a = document.createElement('a');
 
     a.textContent = c.name;
-    // Map to your da.live path: /categories/default
-    // Pass the urlPath as a query param for the block to read
+    // This matches your da.live setup: /categories/default folder/page
     a.href = `/categories/default?urlPath=${c.urlPath}`;
 
     li.appendChild(a);
