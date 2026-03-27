@@ -11,11 +11,9 @@ export default async function decorate(block) {
     body: JSON.stringify({
       query: `
         query GetNavCategories {
-          categories(filters: { parent_id: { eq: "2" } }) {
-            items {
-              name
-              url_path
-            }
+          categories(ids: ["2"], subtree: { startLevel: 1, depth: 1 }) {
+            name
+            urlPath
           }
         }
       `,
@@ -24,8 +22,8 @@ export default async function decorate(block) {
 
   const response = await res.json();
   
-  // The Catalog Service returns a list within the 'items' field
-  const categories = response.data?.categories?.items || [];
+  // Catalog Service returns an array of CategoryView objects directly
+  const categories = response.data?.categories || [];
 
   const ul = document.createElement('ul');
   categories.forEach((c) => {
@@ -33,8 +31,8 @@ export default async function decorate(block) {
     const a = document.createElement('a');
 
     a.textContent = c.name;
-    // Ensuring the link points to your /categories/default route
-    a.href = `/categories/default?urlPath=${c.url_path}`;
+    // Maps to your folder /categories/default and passes the urlPath
+    a.href = `/categories/default?urlPath=${c.urlPath}`;
 
     li.appendChild(a);
     ul.appendChild(li);
