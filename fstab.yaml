@@ -1,0 +1,7 @@
+mountpoints:
+  /:
+    url: https://content.da.live/ankit-jasani/ranosys-sandbox-accs/
+    type: markup
+
+folders:
+  /products/: /products/default
