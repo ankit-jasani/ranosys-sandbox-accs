@@ -1,20 +1,20 @@
 export default async function decorate(block) {
-  const res = await fetch('https://na1-sandbox.api.commerce.adobe.com/Hy9ZaatDe2kixCZqGfcKK6/graphql', {
+  const res = await fetch('https://na1-sandbox.api.commerce.adobe.com', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Magento-Website-Code': 'base',
       'Magento-Store-View-Code': 'default',
-      'x-api-key': '3bd3bd507c214ff0961a92cf21d5ba5b',
-      'x-gw-ims-org-id': '25A85A255EF9D5320A495CCC@AdobeOrg',
+      'x-api-key': 'YOUR_ACTUAL_API_KEY',
+      'x-gw-ims-org-id': 'YOUR_ORG_ID@AdobeOrg',
     },
     body: JSON.stringify({
       query: `
-        query {
-          categories(ids: "2") {
-            children {
+        query GetNavCategories {
+          categories(filters: { parent_id: { eq: "2" } }) {
+            items {
               name
-              urlPath
+              url_path
             }
           }
         }
@@ -23,8 +23,9 @@ export default async function decorate(block) {
   });
 
   const response = await res.json();
-  // ACCS returns an array, so we take the first element (ID "2") and get its children
-  const categories = response.data?.categories[0]?.children || [];
+  
+  // The Catalog Service returns a list within the 'items' field
+  const categories = response.data?.categories?.items || [];
 
   const ul = document.createElement('ul');
   categories.forEach((c) => {
@@ -32,8 +33,8 @@ export default async function decorate(block) {
     const a = document.createElement('a');
 
     a.textContent = c.name;
-    // This matches your da.live setup: /categories/default folder/page
-    a.href = `/categories/default?urlPath=${c.urlPath}`;
+    // Ensuring the link points to your /categories/default route
+    a.href = `/categories/default?urlPath=${c.url_path}`;
 
     li.appendChild(a);
     ul.appendChild(li);
