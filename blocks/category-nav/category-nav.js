@@ -5,6 +5,8 @@ export default async function decorate(block) {
       'Content-Type': 'application/json',
       'Magento-Website-Code': 'base',
       'Magento-Store-View-Code': 'default',
+      'x-api-key': '3bd3bd507c214ff0961a92cf21d5ba5b',
+      'x-gw-ims-org-id': '25A85A255EF9D5320A495CCC@AdobeOrg',
     },
     body: JSON.stringify({
       query: `
