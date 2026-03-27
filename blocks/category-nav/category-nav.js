@@ -1,39 +1,41 @@
-  export default async function decorate(block) {
-    const res = await fetch('https://na1-sandbox.api.commerce.adobe.com/Hy9ZaatDe2kixCZqGfcKK6/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Magento-Website-Code': 'base',
-        'Magento-Store-View-Code': 'default'
-      },
-      body: JSON.stringify({
-        query: `
-          query {
-            categories {
+export default async function decorate(block) {
+  const res = await fetch('https://na1-sandbox.api.commerce.adobe.com/Hy9ZaatDe2kixCZqGfcKK6/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Magento-Website-Code': 'base',
+      'Magento-Store-View-Code': 'default',
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          categories(ids: "2") {
+            children {
               name
+              urlPath
             }
           }
-        `
-      })
-    });
-  
-    const data = await res.json();
-    const categories = data.data.categories;
-  
-    const ul = document.createElement('ul');
-  
-    categories
-      .filter(c => c.name !== 'Default Category')
-      .forEach(c => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-  
-        a.textContent = c.name;
-        a.href = `/categories/default?filter=categoryPath:${c.name.toLowerCase()}`;
-  
-        li.appendChild(a);
-        ul.appendChild(li);
-      });
-  
-    block.appendChild(ul);
-  }
+        }
+      `,
+    }),
+  });
+
+  const response = await res.json();
+  // ACCS returns an array, so we take the first element (ID "2") and get its children
+  const categories = response.data?.categories[0]?.children || [];
+
+  const ul = document.createElement('ul');
+  categories.forEach((c) => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+
+    a.textContent = c.name;
+    // This matches your da.live setup: /categories/default folder/page
+    a.href = `/categories/default?urlPath=${c.urlPath}`;
+
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+
+  block.replaceChildren(ul);
+}
