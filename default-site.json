@@ -1,70 +1,76 @@
 {
   "version": 1,
   "code": {
-    "owner": "{ORG}",
-    "repo": "{REPO}",
+    "owner": "ankit-jasani",
+    "repo": "ranosys-sandbox-accs",
     "source": {
       "type": "github",
-      "url": "https://github.com/{ORG}/{REPO}"
+      "url": "https://github.com/ankit-jasani/ranosys-sandbox-accs"
     }
   },
   "content": {
     "source": {
-      "url": "{CONTENT_SOURCE}",
+      "url": "https://main--ranosys-sandbox-accs--ankit-jasani.aem.live/",
       "type": "onedrive"
     }
   },
   "cdn": {
     "live": {
-      "host": "main--{SITE}--{ORG}.aem.live"
+      "host": "main--ranosys-sandbox-accs--ankit-jasani.aem.live"
     },
     "preview": {
-      "host": "main--{SITE}--{ORG}.aem.page"
+      "host": "main--ranosys-sandbox-accs--ankit-jasani.aem.page"
     }
   },
   "headers": {},
   "public": {
     "default": {
-      "commerce-core-endpoint": "{ENDPOINT}",
-      "commerce-endpoint": "{CS_ENDPOINT}",
+      "commerce-endpoint": "https://na1-sandbox.api.commerce.adobe.com/Hy9ZaatDe2kixCZqGfcKK6/graphql",
       "headers": {
         "all": {
           "Store": "default"
         },
         "cs": {
-          "Magento-Store-Code": "{STORE_CODE}",
-          "Magento-Store-View-Code": "{STORE_VIEW_CODE}",
-          "Magento-Website-Code": "{WEBSITE_CODE}",
-          "x-api-key": "{COMMERCE_API_KEY}",
-          "Magento-Environment-Id": "{COMMERCE_ENVIRONMENT_ID}"
+          "Magento-Store-Code": "main_website_store",
+          "Magento-Store-View-Code": "default",
+          "Magento-Website-Code": "base"
         }
       },
+      "commerce-b2b-enabled": true,
+      "commerce-companies-enabled": true,
+      "commerce-assets-enabled": true,
+      "adobe-commerce-optimizer": false,
       "analytics": {
         "base-currency-code": "USD",
-        "environment": "Production",
-        "store-id": "{STORE_ID}",
-        "store-name": "Main Website Store",
-        "store-url": "{DOMAIN}",
-        "store-view-id": "{STORE_VIEW_ID}",
+        "environment": "Testing",
+        "environment-id": "Hy9ZaatDe2kixCZqGfcKK6",
+        "store-code": "main_website_store",
+        "store-id": "main_website_store",
+        "store-name": "Default Store View",
+        "store-url": "https://main--ranosys-sandbox-accs--ankit-jasani.aem.live/",
+        "store-view-code": "default",
+        "store-view-id": "default",
         "store-view-name": "Default Store View",
-        "website-id": "{WEBSITE_ID}",
+        "website-code": "base",
+        "website-id": "base",
         "website-name": "Main Website"
       },
       "plugins": {
         "picker": {
-           "rootCategory": "{YOUR_ROOT_CATEGORY_ID}"
-         }
+          "rootCategory": "2"
+        }
       }
     }
   },
   "robots": {
-    "txt": "User-agent: *\nAllow: /\nDisallow: /drafts/\nDisallow: /enrichment/\nDisallow: /tools/\nDisallow: /plugins/experimentation/\n\nSitemap: https://{DOMAIN}/sitemap-index.xml"
+    "txt": "User-agent: *\nAllow: /\nDisallow: /drafts/\nDisallow: /enrichment/\nDisallow: /tools/\nDisallow: /plugins/experimentation/\n\nSitemap: https://main--ranosys-sandbox-accs--ankit-jasani.aem.live/sitemap-index.xml"
   },
   "access": {
     "admin": {
       "role": {
         "config_admin": [
-          "{ADMIN_USER_EMAIL}"
+          "ankit.jasani@ranosys.com",
+          "priyanka.kirdat@ranosys.com"
         ]
       },
       "requireAuth": "auto"
