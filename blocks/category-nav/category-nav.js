@@ -5,7 +5,6 @@ export default async function decorate(block) {
       'Content-Type': 'application/json',
       'Magento-Website-Code': 'base',
       'Magento-Store-View-Code': 'default',
-      'x-api-key': 'YOUR_ACTUAL_API_KEY_HERE', // Replace with your real key
     },
     body: JSON.stringify({
       query: `
